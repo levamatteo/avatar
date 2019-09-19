@@ -2,31 +2,30 @@ let eggSpin;
 let mic;
 let micLevel;
 let angleMouth = 0;
-
+let userClicked = false
 
 function setup() {
 
 
   createCanvas(400, 400);
   angleMode(DEGREES)
-  
 
 
-  mic = new p5.AudioIn()
-  mic.start();
+
+
 
 }
 
 function draw() {
-  console.log("mic level " + mic.getLevel());
-
+  //console.log("mic level " + mic.getLevel());
+if(userClicked) {
   micLevel = mic.getLevel();
   eggSpin = map(mic.getLevel(.95), 0, .4, -5, 100)
 
   background(200);
 
   drawPlate();1
- 
+
   drawEggWhite(eggSpin);
 
   drawYoke(micLevel * 100);
@@ -34,17 +33,18 @@ function draw() {
   drawEyes();
 
   drawMouth(angleMouth);
+}
 
-  
 }
 
 function mousePressed() {
+  mic = new p5.AudioIn()
+  mic.start();
+userClicked = true
 
-
-   
     console.log("mouse beep in here");
     angleMouth += 2
-  
+
 }
 
 function drawPlate() {
